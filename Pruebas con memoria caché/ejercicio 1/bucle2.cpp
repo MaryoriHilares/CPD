@@ -8,8 +8,9 @@ double x[MAX], y[MAX];
 
 
 int main(){
-   for (int j = 0; j < MAX; j++)
-       for (int i = 0; i < MAX; i++)
-           A[i][j]=i+j*1.1;
+   for (int j = 0; j < MAX; j++){
+            for (int i = 0; i < MAX; i++)
+                y[i] += A[i][j]*x[j];
+         }
    return 0;
 }
