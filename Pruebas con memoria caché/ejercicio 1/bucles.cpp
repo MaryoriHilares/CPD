@@ -1,35 +1,37 @@
 #include <iostream>
 #include <vector>
 #include <ctime> 
+#include <chrono>
+ 
 using namespace std;
-
-int MAX = 10000; 
-double A[MAX][MAX];
-double x[MAX], y[MAX];
 
 
 int main(){
-
-    for (int x=1000,x<30001;x+=1000){
-        
-        int MAX =x;
-         //bucle 1      
-        t0=clock()
+    for (int x_=10;x_<600;x_+=10){
+        const int MAX =x_;
+        double A[MAX][MAX];
+        double x[MAX], y[MAX];
+         //bucle 1   
+         cout<<x_<<" ";
+        auto t0=chrono::steady_clock::now();;
         for (int i = 0; i < MAX; i++)
             for (int j = 0; j < MAX; j++)
-                A[i][j]=i+j*1.1;
+                y[i] += A[i][j]*x[j];
 
-        t1 = clock();
+        auto t1 =chrono::steady_clock::now();;
         
-        double time = (double(t1-t0)/CLOCKS_PER_SEC);
+        //float time1 = (float(t1-t0)/CLOCKS_PER_SEC);
+        cout<<chrono::duration_cast<chrono::nanoseconds>(t1 - t0).count() <<" ";
+
          // bucle 2
-         t0_=clock()
-         for (int j = 0; j < MAX; j++)
+        auto t_ = chrono::steady_clock::now();;
+         for (int j = 0; j < MAX; j++){
             for (int i = 0; i < MAX; i++)
-                A[i][j]=i+j*1.1;
+                y[i] += A[i][j]*x[j];
          }
-              t1_ = clock();
-        double time_ = (double(t1_-t0_)/CLOCKS_PER_SEC);
-        cout << time << " " << time_ << endl;
+        auto t1_ = chrono::steady_clock::now();;
+        //float time_ = (float(t1_- t_)/CLOCKS_PER_SEC);
+        cout << chrono::duration_cast<chrono::nanoseconds>(t1_ - t_).count()<<endl;
+    }
    return 0;
 }
