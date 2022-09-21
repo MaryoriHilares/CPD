@@ -10,7 +10,7 @@ void Multiply(int n, double** a, double** b, double** c)
     int i=0;
     int j=0;
     int k=0;
-    int blockSize= 100; 
+    int blockSize= 10; 
     
     for(bi=0; bi<n; bi+=blockSize)
         for(bj=0; bj<n; bj+=blockSize)
@@ -23,20 +23,16 @@ void Multiply(int n, double** a, double** b, double** c)
  
 int main(void)
 {
-    int n;
+ for(int r=0; r<=400;r+=20){   
+    int n=r;
     double** A;
     double** B;
     double** C;
-    int numreps = 5;
     int i=0;
     int j=0;
     struct timeval tv1, tv2;
     struct timezone tz;
     double elapsed;
-    printf ("Please enter matrix dimension n : ");
-    scanf("%d", &n);
-    // allocate memory for the matrices
-     
     ///////////////////// Matrix A //////////////////////////
      
     A =(double **)malloc(n*sizeof(double *));
@@ -105,15 +101,12 @@ int main(void)
  
     //multiply matrices
  
-    printf("Multiply matrices %d times...\n", numreps);
-    for (i=0; i<numreps; i++)
-    {
         gettimeofday(&tv1, &tz);
         Multiply(n,A,B,C);
         gettimeofday(&tv2, &tz);
         elapsed += (double) (tv2.tv_sec-tv1.tv_sec) + (double) (tv2.tv_usec-tv1.tv_usec) * 1.e-6;
-    }
-    printf("Time = %lf \n",elapsed);
+
+    printf(" %lf \n",elapsed);
      
     //deallocate memory
      
@@ -123,5 +116,7 @@ int main(void)
     free(B);
     free(C[0]);
     free(C);
+ }
+ 
     return 0;
 }
